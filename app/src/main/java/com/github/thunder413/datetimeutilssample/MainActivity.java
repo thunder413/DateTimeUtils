@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.github.thunder413.datetimeutils.DateTimeStyle;
 import com.github.thunder413.datetimeutils.DateTimeUnits;
 import com.github.thunder413.datetimeutils.DateTimeUtils;
 
@@ -52,8 +53,11 @@ public class MainActivity extends AppCompatActivity {
         Log.d(TAG,"Extract time from date >> "+DateTimeUtils.formatTime(new Date()));
         Log.d(TAG,"Extract time from dateString >> "+DateTimeUtils.formatTime("2017-06-13 04:14:49"));
         Log.d(TAG,"Millis to time  >> "+DateTimeUtils.millisToTime(25416660));
+        Log.d(TAG,"FormatWithStyle  FULL >> "+DateTimeUtils.formatWithStyle(new Date(), DateTimeStyle.FULL));
+        Log.d(TAG,"FormatWithStyle  LONG >> "+DateTimeUtils.formatWithStyle(new Date(), DateTimeStyle.LONG));
+        Log.d(TAG,"FormatWithStyle  MEDIUM >> "+DateTimeUtils.formatWithStyle(new Date(), DateTimeStyle.MEDIUM));
+        Log.d(TAG,"FormatWithStyle  SHORT >> "+DateTimeUtils.formatWithStyle(new Date(), DateTimeStyle.SHORT));
 
-        Log.d(TAG,DateTimeUtils.formatLocalized(new Date(), Locale.FRENCH));
     }
 
     @Override

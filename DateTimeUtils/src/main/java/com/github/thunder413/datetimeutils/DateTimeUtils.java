@@ -28,10 +28,12 @@ public class DateTimeUtils {
      * LOG TAG
      */
     private static final String LOG_TAG = "DateTimeUtils";
+
     /**
      * Debug mode
      */
     private static boolean debug;
+
     /**
      * Time zone
      */
@@ -53,7 +55,6 @@ public class DateTimeUtils {
         timeZone = zone;
     }
 
-
     /**
      * Get Date or DateTime formatting pattern
      *
@@ -72,6 +73,7 @@ public class DateTimeUtils {
      * Convert a Java Date object to String
      *
      * @param date Date Object
+     * @param locale Locale
      * @return Date Object string representation
      */
     public static String formatDate(Date date, Locale locale) {
@@ -84,19 +86,10 @@ public class DateTimeUtils {
     }
 
     /**
-     * Convert a Java Date object to String
-     *
-     * @param date Date Object
-     * @return Date Object string representation
-     */
-    public static String formatDate(Date date) {
-        return formatDate(date, Locale.getDefault());
-    }
-
-    /**
      * Convert a date string to Java Date Object
      *
      * @param dateString Date String
+     * @param locale Locale
      * @return Java Date Object
      */
     public static Date formatDate(String dateString, Locale locale) {
@@ -115,15 +108,23 @@ public class DateTimeUtils {
         }
         return date;
     }
-
+    /**
+     * Convert a Java Date object to String
+     *
+     * @param date Date Object
+     * @return Date Object string representation
+     */
+    public static String formatDate(Date date) {
+        return formatDate(date, Locale.getDefault());
+    }
     /**
      * Convert a date string to Java Date Object
      *
-     * @param dateString Date String
+     * @param date Date String
      * @return Java Date Object
      */
-    public static Date formatDate(String dateString) {
-        return formatDate(dateString, Locale.getDefault());
+    public static Date formatDate(String date) {
+        return formatDate(date, Locale.getDefault());
     }
 
     /**
@@ -151,49 +152,115 @@ public class DateTimeUtils {
     public static Date formatDate(long timeStamp){
        return formatDate(timeStamp,DateTimeUnits.MILLISECONDS);
     }
-
     /**
-     * Get localized date string (Using given locale)
+     * Format date using a given pattern
+     *   and apply supplied locale
      *
-     * @param dateString Date string
-     * @param locale     Desired locale
-     * @return Formatted localized date string
+     * @param date Date Object
+     * @param pattern Pattern
+     * @param locale Locale
+     * @return Formatted date
      */
-    public static String formatLocalized(String dateString, Locale locale) {
-        Date date = formatDate(dateString, locale);
-        SimpleDateFormat iso8601Format = new SimpleDateFormat("d MMM, yyyy HH:mm", locale);
+    public static String formatWithPattern(Date date, String pattern, Locale locale) {
+        if(date == null && debug) {
+            Log.e(LOG_TAG,"FormatWithPattern >> Supplied date is null");
+        }
+        SimpleDateFormat iso8601Format = new SimpleDateFormat(pattern, locale);
         iso8601Format.setTimeZone(TimeZone.getTimeZone(timeZone));
         return iso8601Format.format(date);
     }
 
     /**
+     * Format date using a given pattern
+     *  and apply supplied locale
+     *
+     * @param date Date String
+     * @param pattern Pattern
+     * @param locale Locale
+     * @return Formatted date
+     */
+    public static String formatWithPattern(String date, String pattern, Locale locale) {
+        return formatWithPattern(formatDate(date),pattern,locale);
+    }
+    /**
+     * Format date using a given pattern
+     *      apply default locale
+     *
+     * @param date Date Object
+     * @param pattern Pattern
+     *
+     * @return Formatted date
+     */
+    public static String formatWithPattern(Date date, String pattern) {
+        return formatWithPattern(date,pattern,Locale.getDefault());
+    }
+    /**
+     * Format date using a given pattern
+     *      apply default locale
+     * @param date Date String
+     * @param pattern Pattern
+     *
+     * @return Formatted date
+     */
+    public static String formatWithPattern(String date, String pattern) {
+        return formatWithPattern(date,pattern,Locale.getDefault());
+    }
+    /**
+     * Build a pattern for given style
+     * @param style DateTimeStyle
+     * @return Pattern
+     */
+    private static String getPatternForStyle(DateTimeStyle style) {
+        String pattern;
+        if(style.equals(DateTimeStyle.LONG)){
+             pattern = "MMMM dd, yyyy";
+        } else  if(style.equals(DateTimeStyle.MEDIUM)) {
+            pattern = "MMM dd, yyyy";
+        } else  if(style.equals(DateTimeStyle.SHORT)) {
+            pattern = "MM/dd/yy";
+        } else {
+             pattern = "EEEE, MMMM dd, yyyy";
+        }
+        return pattern;
+    }
+    /**
+     * Get localized date string
+     *
+     * @param date Date string
+     * @return Formatted localized date string
+     */
+    public static String formatWithStyle(Date date, DateTimeStyle style, Locale locale) {
+        if(date == null && debug) {
+            Log.e(LOG_TAG,"FormatWithPattern >> Supplied date is null");
+        }
+        return formatWithPattern(date,getPatternForStyle(style),locale);
+    }
+    /**
      * Get localized date string (Using default locale)
      *
      * @param date Date string
      * @return Formatted localized date string
      */
-    public static String formatLocalized(Date date, Locale locale) {
-        return formatLocalized(formatDate(date), locale);
+    public static String formatWithStyle(String date, DateTimeStyle style, Locale locale) {
+        return formatWithStyle(formatDate(date),style,locale);
     }
-
-    /**
-     * Get localized date string (Using default locale)
-     *
-     * @param dateString Date string
-     * @return Formatted localized date string
-     */
-    public static String formatLocalized(String dateString) {
-        return formatLocalized(dateString, Locale.getDefault());
-    }
-
     /**
      * Get localized date string (Using default locale)
      *
      * @param date Date string
      * @return Formatted localized date string
      */
-    public static String formatLocalized(Date date) {
-        return formatLocalized(date, Locale.getDefault());
+    public static String formatWithStyle(Date date, DateTimeStyle style) {
+        return formatWithStyle(date,style,Locale.getDefault());
+    }
+    /**
+     * Get localized date string (Using default locale)
+     *
+     * @param date Date string
+     * @return Formatted localized date string
+     */
+    public static String formatWithStyle(String date, DateTimeStyle style) {
+        return formatWithStyle(date,style,Locale.getDefault());
     }
 
     /**
@@ -388,7 +455,8 @@ public class DateTimeUtils {
             if (isYesterday(date)) {
                 phrase = context.getString(R.string.time_ago_yesterday_at, formatTime(date));
             } else {
-                phrase = formatLocalized(date);
+                phrase = formatWithStyle(date,style.equals(DateTimeStyle.AGO_FULL_STRING)?
+                        DateTimeStyle.FULL:DateTimeStyle.SHORT);
             }
         } else if (days < 30) {
             s = style.equals(DateTimeStyle.AGO_FULL_STRING) ? context.getString(R.string.time_ago_full_days):
@@ -403,7 +471,8 @@ public class DateTimeUtils {
                     context.getString(R.string.time_ago_months);
             phrase = String.format(s, Math.round(days / 30));
         } else {
-            phrase = formatLocalized(date);
+            phrase = formatWithStyle(date,style.equals(DateTimeStyle.AGO_FULL_STRING)?
+                    DateTimeStyle.FULL:DateTimeStyle.SHORT);
         }
         return phrase;
     }
