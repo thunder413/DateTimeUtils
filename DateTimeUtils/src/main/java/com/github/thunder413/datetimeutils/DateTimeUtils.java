@@ -399,7 +399,6 @@ public class DateTimeUtils {
         int hours = (int) (TimeUnit.MILLISECONDS.toHours(diffInMs) - TimeUnit.DAYS.toHours(days));
         int minutes = (int) (TimeUnit.MILLISECONDS.toMinutes(diffInMs) - TimeUnit.HOURS.toMinutes(TimeUnit.MILLISECONDS.toHours(diffInMs)));
         int seconds = (int) TimeUnit.MILLISECONDS.toSeconds(diffInMs);
-
         switch (dateDiff) {
             case DAYS:
                 return days;
@@ -413,6 +412,39 @@ public class DateTimeUtils {
             default:
                 return (int) diffInMs;
         }
+    }
+    /**
+     * Get difference between two dates
+     *
+     * @param nowDate  Current date
+     * @param oldDate  Date to compare
+     * @param dateDiff Difference Unit
+     * @return Difference
+     */
+    public static int getDateDiff(String nowDate, Date oldDate, DateTimeUnits dateDiff) {
+        return getDateDiff(formatDate(nowDate),oldDate,dateDiff);
+    }
+    /**
+     * Get difference between two dates
+     *
+     * @param nowDate  Current date
+     * @param oldDate  Date to compare
+     * @param dateDiff Difference Unit
+     * @return Difference
+     */
+    public static int getDateDiff(Date nowDate, String oldDate, DateTimeUnits dateDiff) {
+        return getDateDiff(nowDate,formatDate(oldDate),dateDiff);
+    }
+    /**
+     * Get difference between two dates
+     *
+     * @param nowDate  Current date
+     * @param oldDate  Date to compare
+     * @param dateDiff Difference Unit
+     * @return Difference
+     */
+    public static int getDateDiff(String nowDate, String oldDate, DateTimeUnits dateDiff) {
+        return getDateDiff(nowDate,formatDate(oldDate),dateDiff);
     }
     /**
      * Get time ago of given date
