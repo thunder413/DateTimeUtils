@@ -13,8 +13,4 @@ public class DateTimeFormat {
      */
     public static final String TIME_PATTERN_1 = "HH:mm";
     public static final String TIME_PATTERN_2 = "HH:mm:ss";
-    /**
-     * Pattern for styles
-     */
-    public static final String LOCALIZED_PATTERN_1 = "";
 }

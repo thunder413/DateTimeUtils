@@ -169,7 +169,7 @@ public class DateTimeUtils {
      */
     public static String formatLocalized(String dateString, Locale locale) {
         Date date = formatDate(dateString, locale);
-        SimpleDateFormat iso8601Format = new SimpleDateFormat("d MMM yyyy HH:mm", locale);
+        SimpleDateFormat iso8601Format = new SimpleDateFormat("d MMM, yyyy HH:mm", locale);
         iso8601Format.setTimeZone(TimeZone.getTimeZone(timeZone));
         return iso8601Format.format(date);
     }
@@ -205,7 +205,7 @@ public class DateTimeUtils {
     }
 
     /**
-     * Format time
+     * Extract time from date without seconds
      * @param date Date object
      * @return Time string
      */
@@ -214,7 +214,7 @@ public class DateTimeUtils {
     }
 
     /**
-     * Format Time without seconds
+     * Extract time from date without seconds
      * @see DateTimeFormat#TIME_PATTERN_1
      * @param date Date object
      * @return Time String
@@ -226,7 +226,7 @@ public class DateTimeUtils {
     }
 
     /**
-     * Format Time with seconds
+     * Extract time from date with seconds
      * @see DateTimeFormat#TIME_PATTERN_2
      * @param dateString Date string
      * @return Time String
@@ -235,7 +235,8 @@ public class DateTimeUtils {
         return formatTime(formatDate(dateString));
     }
     /**
-     * Format Time with seconds
+     * Extract time from date with seconds
+     *
      * @see DateTimeFormat#TIME_PATTERN_2
      * @param date Date object
      * @return Time String
@@ -245,7 +246,37 @@ public class DateTimeUtils {
         iso8601Format.setTimeZone(TimeZone.getTimeZone(timeZone));
         return iso8601Format.format(date);
     }
+    /**
+     * Convert millis to human readable time
+     *
+     * @param millis TimeStamp
+     * @return Time String
+     */
+    public static String millisToTime(int millis){
+        return  millisToTime(millis,true);
+    }
+    /**
+     * Convert millis to human readable time
+     *
+     * @param millis TimeStamp
+     * @param withSeconds add second to string or not
+     * @return Time String
+     */
+    private static String millisToTime(int millis, boolean withSeconds){
+        long seconds = TimeUnit.MILLISECONDS.toSeconds(millis)
+                - TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(millis));
+        long minutes = TimeUnit.MILLISECONDS.toMinutes(millis)
+                - TimeUnit.HOURS.toMinutes(TimeUnit.MILLISECONDS.toHours(millis));
+        long hours = TimeUnit.MILLISECONDS.toHours(millis);
 
+        return (hours == 0 ? "" : hours < 10 ? String.valueOf("0" + hours)+":" :
+                String.valueOf(hours)+":") +
+                (minutes == 0 ? "00" : minutes < 10 ? String.valueOf("0" + minutes) :
+                        String.valueOf(minutes)) +
+                (withSeconds ? ":" + (seconds == 0 ? "00" : seconds < 10 ? String.valueOf("0" + seconds)
+                        : String.valueOf(seconds)):"");
+
+    }
     /**
      * Tell whether or not a given date is yesterday
      * @param date Date Object
@@ -383,7 +414,17 @@ public class DateTimeUtils {
      * @return Time ago string
      */
     public static String getTimeAgo(Context context, String dateString) {
-        return getTimeAgo(context, formatDate(dateString),DateTimeStyle.AGO_FULL_STRING);
+        return getTimeAgo(context, formatDate(dateString),DateTimeStyle.AGO_SHORT_STRING);
+    }
+    /**
+     * Get time ago of given date
+     *
+     * @param context    Context
+     * @param date Representing a date time string
+     * @return Time ago string
+     */
+    public static String getTimeAgo(Context context, Date date) {
+        return getTimeAgo(context, date,DateTimeStyle.AGO_SHORT_STRING);
     }
 
 }
