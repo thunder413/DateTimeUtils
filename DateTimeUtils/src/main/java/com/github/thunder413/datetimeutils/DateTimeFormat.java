@@ -1,6 +1,12 @@
 package com.github.thunder413.datetimeutils;
 
 @SuppressWarnings("WeakerAccess")
+/**
+ * DateTimeFormat
+ *
+ * @author thunder413
+ * @version 1.5
+ */
 public class DateTimeFormat {
     // DateTime format String
     public static final String DATE_TIME_PATTERN_1  = "yyyy-MM-dd HH:mm:ss";

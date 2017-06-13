@@ -14,13 +14,13 @@ import java.util.TimeZone;
 import java.util.concurrent.TimeUnit;
 
 /**
- * DateUtils
+ * DateTimeUtils
  * This class contains a bunch of function that can manipulate
  * Date object or Date String to achieve certain operations
  * e.g : Time difference, Time Ago, Date formatting
  *
- * @author Cheikh Semeta
- * @version 1.0
+ * @author thunder413
+ * @version 1.5
  */
 @SuppressWarnings("WeakerAccess")
 public class DateTimeUtils {
@@ -52,15 +52,7 @@ public class DateTimeUtils {
     public static void setTimeZone(String zone){
         timeZone = zone;
     }
-    /**
-     * Tell whether or not a given string represent a date time string or a simple date
-     *
-     * @param dateString Date String
-     * @return True if given string is a date time False otherwise
-     */
-    private static boolean isDateTime(String dateString) {
-        return (dateString != null) && (dateString.trim().split(" ").length > 1);
-    }
+
 
     /**
      * Get Date or DateTime formatting pattern
@@ -276,6 +268,15 @@ public class DateTimeUtils {
                 (withSeconds ? ":" + (seconds == 0 ? "00" : seconds < 10 ? String.valueOf("0" + seconds)
                         : String.valueOf(seconds)):"");
 
+    }
+    /**
+     * Tell whether or not a given string represent a date time string or a simple date
+     *
+     * @param dateString Date String
+     * @return True if given string is a date time False otherwise
+     */
+    public static boolean isDateTime(String dateString) {
+        return (dateString != null) && (dateString.trim().split(" ").length > 1);
     }
     /**
      * Tell whether or not a given date is yesterday
