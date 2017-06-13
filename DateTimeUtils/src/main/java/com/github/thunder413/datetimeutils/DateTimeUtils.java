@@ -24,21 +24,6 @@ import java.util.concurrent.TimeUnit;
  */
 @SuppressWarnings("WeakerAccess")
 public class DateTimeUtils {
-    // DateTime format String
-    public static final String DATE_TIME_PATTERN_1  = "yyyy-MM-dd HH:mm:ss";
-    public static final String DATE_TIME_PATTERN_2 = "dd/MM/yyyy HH:mm:ss";
-    // Date format String
-    public static final String DATE_PATTERN_1 = "yyyy-MM-dd";
-    public static final String DATE_PATTERN_2 = "dd/MM/yyyy";
-    /**
-     * Time format
-     */
-    public static final String TIME_PATTERN_1 = "HH:mm";
-    public static final String TIME_PATTERN_2 = "HH:mm:ss";
-    /**
-     * Pattern for styles
-     */
-    public static final String LOCALIZED_PATTERN_1 = "";
     /**
      * LOG TAG
      */
@@ -85,9 +70,9 @@ public class DateTimeUtils {
      */
     private static String getDatePattern(String dateString) {
         if (isDateTime(dateString)) {
-            return (dateString.contains("/")) ? DATE_TIME_PATTERN_2 : DATE_TIME_PATTERN_1;
+            return (dateString.contains("/")) ? DateTimeFormat.DATE_TIME_PATTERN_2 : DateTimeFormat.DATE_TIME_PATTERN_1;
         } else {
-            return (dateString.contains("/")) ? DATE_PATTERN_2 : DATE_PATTERN_1;
+            return (dateString.contains("/")) ? DateTimeFormat.DATE_PATTERN_2 : DateTimeFormat.DATE_PATTERN_1;
         }
     }
 
@@ -101,7 +86,7 @@ public class DateTimeUtils {
         if(date == null && debug){
             Log.e(LOG_TAG,"formatDate >> Supplied date is null");
         }
-        SimpleDateFormat iso8601Format = new SimpleDateFormat(DATE_TIME_PATTERN_1, locale);
+        SimpleDateFormat iso8601Format = new SimpleDateFormat(DateTimeFormat.DATE_TIME_PATTERN_1, locale);
         iso8601Format.setTimeZone(TimeZone.getTimeZone(timeZone));
         return iso8601Format.format(date);
     }
@@ -230,19 +215,19 @@ public class DateTimeUtils {
 
     /**
      * Format Time without seconds
-     * @see #TIME_PATTERN_1
+     * @see DateTimeFormat#TIME_PATTERN_1
      * @param date Date object
      * @return Time String
      */
     public static String formatTime(Date date){
-        SimpleDateFormat iso8601Format = new SimpleDateFormat(TIME_PATTERN_1, Locale.getDefault());
+        SimpleDateFormat iso8601Format = new SimpleDateFormat(DateTimeFormat.TIME_PATTERN_1, Locale.getDefault());
         iso8601Format.setTimeZone(TimeZone.getTimeZone(timeZone));
         return iso8601Format.format(date);
     }
 
     /**
      * Format Time with seconds
-     * @see #TIME_PATTERN_2
+     * @see DateTimeFormat#TIME_PATTERN_2
      * @param dateString Date string
      * @return Time String
      */
@@ -251,12 +236,12 @@ public class DateTimeUtils {
     }
     /**
      * Format Time with seconds
-     * @see #TIME_PATTERN_2
+     * @see DateTimeFormat#TIME_PATTERN_2
      * @param date Date object
      * @return Time String
      */
     public static String formatFullTime(Date date){
-        SimpleDateFormat iso8601Format = new SimpleDateFormat(TIME_PATTERN_2, Locale.getDefault());
+        SimpleDateFormat iso8601Format = new SimpleDateFormat(DateTimeFormat.TIME_PATTERN_2, Locale.getDefault());
         iso8601Format.setTimeZone(TimeZone.getTimeZone(timeZone));
         return iso8601Format.format(date);
     }
@@ -400,48 +385,5 @@ public class DateTimeUtils {
     public static String getTimeAgo(Context context, String dateString) {
         return getTimeAgo(context, formatDate(dateString),DateTimeStyle.AGO_FULL_STRING);
     }
-    public enum DateTimeStyle {
-        S_MONTH_S_YEAR,
-        F_MONTH_S_YEAR,
-        F_MONTH_F_YEAR,
-        S_MONTH_S_YEAR_TIME,
-        F_MONTH_S_YEAR_TIME,
-        F_MONTH_F_YEAR_TIME,
-        S_MONTH_S_YEAR_AT_TIME,
-        F_MONTH_S_YEAR_AT_TIME,
-        F_MONTH_F_YEAR_AT_TIME,
-        S_WEEK_S_MONTH_S_YEAR,
-        S_WEEK_F_MONTH_S_YEAR,
-        S_WEEK_F_MONTH_F_YEAR,
-        F_WEEK_S_MONTH_S_YEAR,
-        F_WEEK_F_MONTH_S_YEAR,
-        F_WEEK_F_MONTH_F_YEAR,
-        S_WEEK_S_MONTH_S_YEAR_TIME,
-        S_WEEK_F_MONTH_S_YEAR_TIME,
-        S_WEEK_F_MONTH_F_YEAR_TIME,
-        F_WEEK_S_MONTH_S_YEAR_TIME,
-        F_WEEK_F_MONTH_S_YEAR_TIME,
-        F_WEEK_F_MONTH_F_YEAR_TIME,
-        S_WEEK_S_MONTH_S_YEAR_AT_TIME,
-        S_WEEK_F_MONTH_S_YEAR_AT_TIME,
-        S_WEEK_F_MONTH_F_YEAR_AT_TIME,
-        F_WEEK_S_MONTH_S_YEAR_AT_TIME,
-        F_WEEK_F_MONTH_S_YEAR_AT_TIME,
-        F_WEEK_F_MONTH_F_YEAR_AT_TIME,
-        AGO_SHORT_STRING,
-        AGO_FULL_STRING
-    }
 
-    public enum DateTimeFields {
-        DAY,
-        MONTH,
-        YEAT
-    }
-    public enum DateTimeUnits {
-        DAYS,
-        HOURS,
-        MINUTES,
-        SECONDS,
-        MILLISECONDS,
-    }
 }
