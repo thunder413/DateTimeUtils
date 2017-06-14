@@ -516,7 +516,7 @@ public class DateTimeUtils {
      * @return Time ago string
      */
     public static String getTimeAgo(Context context, String dateString) {
-        return getTimeAgo(context, formatDate(dateString),DateTimeStyle.AGO_SHORT_STRING);
+        return getTimeAgo(context, formatDate(dateString),DateTimeStyle.AGO_FULL_STRING);
     }
     /**
      * Get time ago of given date
@@ -526,7 +526,7 @@ public class DateTimeUtils {
      * @return Time ago string
      */
     public static String getTimeAgo(Context context, Date date) {
-        return getTimeAgo(context, date,DateTimeStyle.AGO_SHORT_STRING);
+        return getTimeAgo(context, date,DateTimeStyle.AGO_FULL_STRING);
     }
 
 }

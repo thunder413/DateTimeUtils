@@ -81,7 +81,7 @@ DateTimeUtils.formatWithStyle("2017-06-13", DateTimeStyle.SHORT); // 06/13/17
 
 #### Date string as source
 
-```jade
+```java
 DateTimeUtils.formatWithPattern("2017-06-13", "EEEE, MMMM dd, yyyy"); // Tuesday, June 13, 2017
 ```
 
@@ -118,6 +118,35 @@ boolean state = DateTimeUtils.isYestrday("2017-06-15 04:14:49");
 ``getDateDiff`` give you the difference between two date in days, hours, minutes, seconds or milliseconds ``DateTimeUnits`` 
 
 ```java
-
+// Dates can be date object or date string
+Date date = new Date();
+String date2 = "2017-06-13 04:14:49";
+// Get difference in milliseconds
+int diff = DateTimeUtils.getDateDiff(date,date2, DateTimeUnits.MILLISECONDS);
+// Get difference in seconds
+int diff = DateTimeUtils.getDateDiff(date,date2, DateTimeUnits.SECONDS);
+// Get difference in minutes
+int diff = DateTimeUtils.getDateDiff(date,date2, DateTimeUnits.MINUTES);
+// Get difference in hours
+int diff = DateTimeUtils.getDateDiff(date,date2, DateTimeUnits.HOURS);
+// Get difference in days
+int diff = DateTimeUtils.getDateDiff(date,date2, DateTimeUnits.DAYS);
 ```
 
+### getTimeAgo
+
+``getTimeAgo`` give ou the elapsed time since a given date, it also offer two print mode the full and shot strings ``eg . 3 hours ago | 3h ago`` the strings are localized but at the moment on FR and EN are available if you need your langage to be add just let me know :)
+
+```java
+String timeAgo = DateTimeUtils.getTimeAgo(context,new Date()); // Full string style will be used
+// Short string style
+String timeAgo = DateTimeUtils.getTimeAgo(context,"new Date()",DateTimeStyle.AGO_SHORT_STRING ); 
+```
+
+## Author 
+
+- **Thunder413** (https://github.com/thunder413)
+
+## License
+
+This project is licensed under the  [MIT License](http://www.opensource.org/licenses/mit-license.php) 
