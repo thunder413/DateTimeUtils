@@ -128,7 +128,7 @@ public class DateTimeUtils {
     }
 
     /**
-     * Convert a timeStamp into a date
+     * Convert a timeStamp into a date object
      *
      * @param timeStamp TimeStamp
      * @param units Witch unit is whether seconds or milliseconds
@@ -142,6 +142,7 @@ public class DateTimeUtils {
         else
             return new Date(timeStamp);
     }
+
     /**
      * Convert a timeStamp into a date considering given timeStamp in milliseconds
      *

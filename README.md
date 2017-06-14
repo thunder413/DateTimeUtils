@@ -33,7 +33,7 @@ Javadocs are available [here](http://https://github.com/thunder413/NetRequest/ap
 
 ### formatDate
 
-``formatDate`` is a method that allow you to convert ``date object`` to ``string`` or vice-versa
+``formatDate`` is a method that allow you to convert ``date object`` to ``string`` or ``timeStamp`` to date and vice-versa.
 
 #### Date string to Date object 
 
@@ -51,6 +51,17 @@ Date date = DateTimeUtils.formatDate("2017/06/13");
 
 ```java
 String date = DateTimeUtils.formatDate(new Date());
+```
+
+#### timeStamp to Date object
+
+By default it will considere given timeStamp in milliseconds but in case you did retrieve the timeStamp from server with use seconds supply ``DateTimeUnits.SECONDS`` to tell the fonction about
+
+```java
+// Using milliseconds
+Date date = DateTimeUtils.formatDate(1497399731000);
+// Using seconds (Server timeStamp)
+Date date = DateTimeUtils.formatDate(1497399731,DateTimeUnits.SECONDS);
 ```
 
 ### formatWithStyle
@@ -135,7 +146,7 @@ int diff = DateTimeUtils.getDateDiff(date,date2, DateTimeUnits.DAYS);
 
 ### getTimeAgo
 
-``getTimeAgo`` give ou the elapsed time since a given date, it also offer two print mode the full and shot strings ``eg . 3 hours ago | 3h ago`` the strings are localized but at the moment on FR and EN are available if you need your langage to be add just let me know :)
+``getTimeAgo`` give ou the elapsed time since a given date, it also offer two print mode the full and short strings ``eg . 3 hours ago | 3h ago`` the strings are localized but at the moment on FR and EN are available if you need your langage to be add just let me know :)
 
 ```java
 String timeAgo = DateTimeUtils.getTimeAgo(context,new Date()); // Full string style will be used
