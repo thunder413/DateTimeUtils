@@ -53,6 +53,8 @@ public class MainActivity extends AppCompatActivity {
         Log.d(TAG,"Extract time from date >> "+DateTimeUtils.formatTime(new Date()));
         Log.d(TAG,"Extract time from dateString >> "+DateTimeUtils.formatTime("2017-06-13 04:14:49"));
         Log.d(TAG,"Millis to time  >> "+DateTimeUtils.millisToTime(25416660));
+        Log.d(TAG,"Time to millis  >> "+DateTimeUtils.timeToMillis("14:20"));
+        Log.d(TAG,"Revert Millis to time  >> "+DateTimeUtils.millisToTime(860000));
         Log.d(TAG,"FormatWithStyle  FULL >> "+DateTimeUtils.formatWithStyle(new Date(), DateTimeStyle.FULL));
         Log.d(TAG,"FormatWithStyle  LONG >> "+DateTimeUtils.formatWithStyle(new Date(), DateTimeStyle.LONG));
         Log.d(TAG,"FormatWithStyle  MEDIUM >> "+DateTimeUtils.formatWithStyle(new Date(), DateTimeStyle.MEDIUM));

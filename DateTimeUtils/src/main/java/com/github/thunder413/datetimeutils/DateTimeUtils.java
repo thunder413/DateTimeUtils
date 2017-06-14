@@ -142,7 +142,6 @@ public class DateTimeUtils {
         else
             return new Date(timeStamp);
     }
-
     /**
      * Convert a timeStamp into a date considering given timeStamp in milliseconds
      *
@@ -266,63 +265,57 @@ public class DateTimeUtils {
 
     /**
      * Extract time from date without seconds
-     * @param date Date object
-     * @return Time string
-     */
-    public static String formatTime(String date){
-        return formatTime(formatDate(date));
-    }
-
-    /**
-     * Extract time from date without seconds
      * @see DateTimeFormat#TIME_PATTERN_1
      * @param date Date object
      * @return Time String
      */
-    public static String formatTime(Date date){
+    public static String formatTime(Date date, boolean forceShowHours){
         SimpleDateFormat iso8601Format = new SimpleDateFormat(DateTimeFormat.TIME_PATTERN_1, Locale.getDefault());
         iso8601Format.setTimeZone(TimeZone.getTimeZone(timeZone));
-        return iso8601Format.format(date);
+        String time = iso8601Format.format(date);
+        String[] hhmmss = time.split(":");
+        int hours = Integer.parseInt(hhmmss[0]);
+        int minutes = Integer.parseInt(hhmmss[1]);
+        int seconds = Integer.parseInt(hhmmss[2]);
+        return (hours == 0 && !forceShowHours ? "" : hours < 10 ? String.valueOf("0" + hours)+":" :
+                String.valueOf(hours)+":") +
+                (minutes == 0 ? "00" : minutes < 10 ? String.valueOf("0" + minutes) :
+                        String.valueOf(minutes))+":"
+                + (seconds == 0 ? "00" : seconds < 10 ? String.valueOf("0" + seconds): String.valueOf(seconds));
+    }
+    /**
+     * Extract time from date without seconds
+     * @param date Date object
+     * @return Time string
+     */
+    public static String formatTime(String date, boolean forceShowHours){
+        return formatTime(formatDate(date),forceShowHours);
+    }
+    /**
+     * Extract time from date without seconds
+     * @param date Date object
+     * @return Time string
+     */
+    public static String formatTime(Date date){
+        return formatTime(date,false);
+    }
+    /**
+     * Extract time from date without seconds
+     * @param date Date object
+     * @return Time string
+     */
+    public static String formatTime(String date){
+        return formatTime(date,false);
     }
 
     /**
-     * Extract time from date with seconds
-     * @see DateTimeFormat#TIME_PATTERN_2
-     * @param dateString Date string
-     * @return Time String
-     */
-    public static String formatFullTime(String dateString){
-        return formatTime(formatDate(dateString));
-    }
-    /**
-     * Extract time from date with seconds
-     *
-     * @see DateTimeFormat#TIME_PATTERN_2
-     * @param date Date object
-     * @return Time String
-     */
-    public static String formatFullTime(Date date){
-        SimpleDateFormat iso8601Format = new SimpleDateFormat(DateTimeFormat.TIME_PATTERN_2, Locale.getDefault());
-        iso8601Format.setTimeZone(TimeZone.getTimeZone(timeZone));
-        return iso8601Format.format(date);
-    }
-    /**
      * Convert millis to human readable time
      *
      * @param millis TimeStamp
-     * @return Time String
-     */
-    public static String millisToTime(int millis){
-        return  millisToTime(millis,true);
-    }
-    /**
-     * Convert millis to human readable time
      *
-     * @param millis TimeStamp
-     * @param withSeconds add second to string or not
      * @return Time String
      */
-    private static String millisToTime(int millis, boolean withSeconds){
+    public static String millisToTime(long millis){
         long seconds = TimeUnit.MILLISECONDS.toSeconds(millis)
                 - TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(millis));
         long minutes = TimeUnit.MILLISECONDS.toMinutes(millis)
@@ -332,10 +325,31 @@ public class DateTimeUtils {
         return (hours == 0 ? "" : hours < 10 ? String.valueOf("0" + hours)+":" :
                 String.valueOf(hours)+":") +
                 (minutes == 0 ? "00" : minutes < 10 ? String.valueOf("0" + minutes) :
-                        String.valueOf(minutes)) +
-                (withSeconds ? ":" + (seconds == 0 ? "00" : seconds < 10 ? String.valueOf("0" + seconds)
-                        : String.valueOf(seconds)):"");
+                        String.valueOf(minutes)) + ":"
+                + (seconds == 0 ? "00" : seconds < 10 ? String.valueOf("0" + seconds)
+                        : String.valueOf(seconds));
 
+    }
+    /**
+     * Convert millis to human readable time
+     *
+     * @param time Time string
+     * @return Time String
+     */
+    public static long timeToMillis(String time) {
+        String[] hhmmss = time.split(":");
+        int hours = 0;
+        int minutes;
+        int seconds;
+        if(hhmmss.length == 3) {
+           hours = Integer.parseInt(hhmmss[0]);
+           minutes = Integer.parseInt(hhmmss[1]);
+           seconds = Integer.parseInt(hhmmss[2]);
+        } else {
+            minutes = Integer.parseInt(hhmmss[0]);
+            seconds = Integer.parseInt(hhmmss[1]);
+        }
+        return (((hours * 60)+(minutes * 60) + seconds) * 1000);
     }
     /**
      * Tell whether or not a given string represent a date time string or a simple date

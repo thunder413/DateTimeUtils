@@ -154,6 +154,36 @@ String timeAgo = DateTimeUtils.getTimeAgo(context,new Date()); // Full string st
 String timeAgo = DateTimeUtils.getTimeAgo(context,"new Date()",DateTimeStyle.AGO_SHORT_STRING ); 
 ```
 
+### formatTime
+
+``formatTime`` allow you to extract time from date by default it wont show the hours if equal to ``0`` but you can supply ``forceShowHours`` parameter to force hours display
+
+```java
+String time = DateTimeUtils.formatTime(new Date()); // 14:49 if hours equals 0 or 04:14:09 if hours witch is wrong when use it on time rather than a duration
+// Solution >> force hours display
+String time = DateTimeUtils.formatTime(new Date(),true);
+// And you can also supplie a date string
+String time = DateTimeUtils.formatTime("2017-06-13 04:14:49"); // 04:14:49
+```
+
+### millisToTime
+
+``millisToTime`` is usefull when your dealing with duration and want to display for example player duration or current playback position into human readable value.
+
+```java
+String time = DateTimeUtils.millisToTime(2515); // It take millis as an argument not seconds
+```
+
+### timeToMillis
+
+``timeToMillis`` allow to convert ``time`` string to ``millseconds`` 
+
+```java
+int milliseconds = DateTimeUtils.timeToMillis("14:20"); // 860000
+```
+
+
+
 ## Author 
 
 - **Thunder413** (https://github.com/thunder413)

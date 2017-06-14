@@ -26,11 +26,7 @@ public class DateTimeFormat {
      */
     public static final String DATE_PATTERN_2 = "dd/MM/yyyy";
     /**
-     * Time format pattern without seconds
-     */
-    public static final String TIME_PATTERN_1 = "HH:mm";
-    /**
      * Time format full
      */
-    public static final String TIME_PATTERN_2 = "HH:mm:ss";
+    public static final String TIME_PATTERN_1 = "HH:mm:ss";
 }
