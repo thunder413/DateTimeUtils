@@ -27,7 +27,7 @@ And then simply add the following line to the `dependencies` section of your app
 compile 'com.github.thunder413:DateTimeUtils:1.3'
 ```
 
-Javadocs are available [here](http://https://github.com/thunder413/NetRequest/apidocs/index.html).
+Javadocs are available [here](http://https://github.com/thunder413/DateTimeUtils/apidocs/index.html).
 
 ## Examples
 
@@ -146,7 +146,7 @@ int diff = DateTimeUtils.getDateDiff(date,date2, DateTimeUnits.DAYS);
 
 ### getTimeAgo
 
-``getTimeAgo`` give ou the elapsed time since a given date, it also offer two print mode the full and short strings ``eg . 3 hours ago | 3h ago`` the strings are localized but at the moment on FR and EN are available if you need your langage to be add just let me know :)
+``getTimeAgo`` give ou the elapsed time since a given date, it also offer two print mode the full and short strings ``eg . 3 hours ago | 3h ago`` the strings are localized but at the moment only FR and EN language are available. If you need your langage to be add just let me know :)
 
 ```java
 String timeAgo = DateTimeUtils.getTimeAgo(context,new Date()); // Full string style will be used
