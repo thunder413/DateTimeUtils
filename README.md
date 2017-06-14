@@ -55,7 +55,7 @@ String date = DateTimeUtils.formatDate(new Date());
 
 #### timeStamp to Date object
 
-By default it will considere given timeStamp in milliseconds but in case you did retrieve the timeStamp from server with use seconds supply ``DateTimeUnits.SECONDS`` to tell the fonction about
+By default it will considere given timeStamp in milliseconds but in case you did retrieve the timeStamp from server wich usually will be in seconds supply ``DateTimeUnits.SECONDS`` to tell the fonction about
 
 ```java
 // Using milliseconds
