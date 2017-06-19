@@ -31,6 +31,13 @@ Javadocs are available [here](http://https://github.com/thunder413/DateTimeUtils
 
 ## Examples
 
+### setTimeZone
+
+``setTimeZone`` allow you to define your time zone by default it's ``UTC``
+
+```java
+DateTimeUtils.setTimeZone("UTC");
+```
 ### formatDate
 
 ``formatDate`` is a method that allow you to convert ``date object`` to ``string`` or ``timeStamp`` to date and vice-versa.
