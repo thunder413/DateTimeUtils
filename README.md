@@ -24,7 +24,7 @@ allprojects {
 And then simply add the following line to the `dependencies` section of your app module `build.gradle` file:
 
 ```groovy
-implementation 'com.github.thunder413:DateTimeUtils:2.0'
+implementation 'com.github.thunder413:DateTimeUtils:2.3'
 ```
 
 Javadocs are available [here](http://https://github.com/thunder413/DateTimeUtils/apidocs/index.html).
