@@ -1,8 +1,7 @@
 package com.github.thunder413.datetimeutilssample;
 
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
+
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.format.DateUtils;
@@ -15,6 +14,8 @@ import com.github.thunder413.datetimeutils.DateTimeStyle;
 import com.github.thunder413.datetimeutils.DateTimeUnits;
 import com.github.thunder413.datetimeutils.DateTimeUtils;
 
+import java.time.ZoneId;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
@@ -26,19 +27,16 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
+
         Date date = new Date();
+        DateTimeUtils.setDebug(true);
+
         Log.d(TAG,"Date To String >> "+DateTimeUtils.formatDate(new Date()));
-        Log.d(TAG,"String To Date >> "+DateTimeUtils.formatDate("2017-06-13 04:14:49"));
+        DateTimeUtils.setTimeZone("GMT");
+        Log.d(TAG,"Previous month from today >> "+DateTimeUtils.formatDate(DateTimeUtils.getPreviousMonthDate(new Date())));
+        Log.d(TAG,"Next month from today >> "+DateTimeUtils.formatDate(DateTimeUtils.getNextMonthDate(new Date())));
+        Log.d(TAG,"Previous >> "+DateTimeUtils.formatDate(DateTimeUtils.getPreviousWeekDate(DateTimeUtils.formatDate(" 2019-05-06 22:32:57"), Calendar.MONDAY)));
+        /*Log.d(TAG,"String To Date >> "+DateTimeUtils.formatDate("2017-06-13 04:14:49"));
         Log.d(TAG,"IsToDay >> "+DateTimeUtils.isToday(new Date()));
         Log.d(TAG,"IsToDay String >> "+DateTimeUtils.isToday("2017-06-15 04:14:49"));
         Log.d(TAG,"IsYesterdaY Date >> "+DateTimeUtils.isYesterday(new Date()));
@@ -58,29 +56,8 @@ public class MainActivity extends AppCompatActivity {
         Log.d(TAG,"FormatWithStyle  FULL >> "+DateTimeUtils.formatWithStyle(new Date(), DateTimeStyle.FULL));
         Log.d(TAG,"FormatWithStyle  LONG >> "+DateTimeUtils.formatWithStyle(new Date(), DateTimeStyle.LONG));
         Log.d(TAG,"FormatWithStyle  MEDIUM >> "+DateTimeUtils.formatWithStyle(new Date(), DateTimeStyle.MEDIUM));
-        Log.d(TAG,"FormatWithStyle  SHORT >> "+DateTimeUtils.formatWithStyle(new Date(), DateTimeStyle.SHORT));
+        Log.d(TAG,"FormatWithStyle  SHORT >> "+DateTimeUtils.formatWithStyle(new Date(), DateTimeStyle.SHORT));*/
 
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
 }

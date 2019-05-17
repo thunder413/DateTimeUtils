@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">DateTimeUtils</string>
+    <string name="time_ago_now">à L\'instant</string>
+    <string name="time_ago_full_seconds">Il y\'a %1$d seconds</string>
+    <string name="time_ago_full_minute">Il y\'a %1$d minute</string>
+    <string name="time_ago_full_minutes">Il y\'a %1$d minutes</string>
+    <string name="time_ago_full_hour">Il y\'a %1$d heure</string>
+    <string name="time_ago_full_hours">Il y\'a %1$d heures</string>
+    <string name="time_ago_full_yesterday_at">Hier à %1$s</string>
+    <string name="time_ago_full_days">Il y\'a %1$s jours</string>
+    <string name="time_ago_full_month">Il y\'a %1$s mois</string>
+    <string name="time_ago_full_months">Il y\'a %1$s mois</string>
+    <string name="time_ago_seconds">Il y\'a %1$s sec</string>
+    <string name="time_ago_minute">Il y\'a %1$s min</string>
+    <string name="time_ago_minutes">Il y\'a %1$s min</string>
+    <string name="time_ago_hour">Il y\'a %1$s h</string>
+    <string name="time_ago_hours">Il y\'a %1$s h</string>
+    <string name="time_ago_yesterday_at">Hier à %1$s</string>
+    <string name="time_ago_days">y\'a %1$s js</string>
+    <string name="time_ago_month">y\'a %1$s mois</string>
+    <string name="time_ago_months">y\'a %1$s mois</string>
+</resources>

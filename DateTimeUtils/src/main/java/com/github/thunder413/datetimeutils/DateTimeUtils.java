@@ -82,6 +82,9 @@ public class DateTimeUtils {
         }
         SimpleDateFormat iso8601Format = new SimpleDateFormat(DateTimeFormat.DATE_TIME_PATTERN_1, locale);
         iso8601Format.setTimeZone(TimeZone.getTimeZone(timeZone));
+        if(debug) {
+            Log.d(LOG_TAG,"formatDate >> Formatting using "+iso8601Format.getTimeZone().getDisplayName()+" | "+iso8601Format.getTimeZone().getID());
+        }
         return iso8601Format.format(date);
     }
 
@@ -277,11 +280,11 @@ public class DateTimeUtils {
         int hours = Integer.parseInt(hhmmss[0]);
         int minutes = Integer.parseInt(hhmmss[1]);
         int seconds = Integer.parseInt(hhmmss[2]);
-        return (hours == 0 && !forceShowHours ? "" : hours < 10 ? String.valueOf("0" + hours)+":" :
-                String.valueOf(hours)+":") +
-                (minutes == 0 ? "00" : minutes < 10 ? String.valueOf("0" + minutes) :
+        return (hours == 0 && !forceShowHours ? "" : hours < 10 ? "0" + hours +":" :
+                hours +":") +
+                (minutes == 0 ? "00" : minutes < 10 ? "0" + minutes :
                         String.valueOf(minutes))+":"
-                + (seconds == 0 ? "00" : seconds < 10 ? String.valueOf("0" + seconds): String.valueOf(seconds));
+                + (seconds == 0 ? "00" : seconds < 10 ? "0" + seconds : String.valueOf(seconds));
     }
     /**
      * Extract time from date without seconds
@@ -322,11 +325,11 @@ public class DateTimeUtils {
                 - TimeUnit.HOURS.toMinutes(TimeUnit.MILLISECONDS.toHours(millis));
         long hours = TimeUnit.MILLISECONDS.toHours(millis);
 
-        return (hours == 0 ? "" : hours < 10 ? String.valueOf("0" + hours)+":" :
-                String.valueOf(hours)+":") +
-                (minutes == 0 ? "00" : minutes < 10 ? String.valueOf("0" + minutes) :
+        return (hours == 0 ? "" : hours < 10 ? "0" + hours +":" :
+                hours +":") +
+                (minutes == 0 ? "00" : minutes < 10 ? "0" + minutes :
                         String.valueOf(minutes)) + ":"
-                + (seconds == 0 ? "00" : seconds < 10 ? String.valueOf("0" + seconds)
+                + (seconds == 0 ? "00" : seconds < 10 ? "0" + seconds
                         : String.valueOf(seconds));
 
     }
@@ -399,6 +402,113 @@ public class DateTimeUtils {
      */
     public static boolean isToday(String dateString){
         return isToday(formatDate(dateString));
+    }
+
+    /**
+     * Get Previous month from a given date
+     * @param date Date start
+     * @return Date of the previous month
+     */
+    public static Date getPreviousMonthDate(Date date) {
+        Calendar c = Calendar.getInstance();
+        c.setTime(date); //
+        c.add(Calendar.MONTH, -1);
+        return  c.getTime();
+    }
+
+    /**
+     * Get Previous month from a given date
+     * @param date Date start
+     * @return Date of the previous month
+     */
+    public static Date getPreviousMonthDate(String date) {
+        return getPreviousMonthDate(formatDate(date));
+    }
+
+    /**
+     * Get Next month from a given date
+     * @param date Date start
+     * @return Date of the previous month
+     */
+    public static Date getNextMonthDate(Date date) {
+        Calendar c = Calendar.getInstance();
+        c.setTime(date); //
+        c.add(Calendar.MONTH, 1);
+        return  c.getTime();
+    }
+    /**
+     * Get Previous month from a given date
+     * @param date String Date start
+     * @return Date of the previous month
+     */
+    public static Date getNextMonthDate(String date) {
+        return getNextMonthDate(formatDate(date));
+    }
+
+    /**
+     * Get Previous week date
+     * @param date Date Object
+     * @param dayOfTheWeek Day Of the week
+     * @return Date
+     */
+    public static Date getPreviousWeekDate(Date date, int dayOfTheWeek) {
+        Calendar c = Calendar.getInstance();
+        c.setTime(date);
+        c.setFirstDayOfWeek(dayOfTheWeek);
+        c.set(Calendar.DAY_OF_WEEK, dayOfTheWeek);
+        c.add(Calendar.DATE, -7);
+        return  c.getTime();
+    }
+
+    /**
+     * Get Previous week date
+     * @param date Date String
+     * @param dayOfTheWeek Day Of the week
+     * @return Date
+     */
+    public static Date getPreviousWeekDate(String date, int dayOfTheWeek) {
+        return  getPreviousWeekDate(formatDate(date),dayOfTheWeek);
+    }
+
+    /**
+     * Get Next week date
+     * @param date Date Object
+     * @param dayOfTheWeek Day Of the week
+     * @return Date
+     */
+    public static Date getNextWeekDate(Date date, int dayOfTheWeek) {
+        Calendar c = Calendar.getInstance();
+        c.setTime(date);
+        c.setFirstDayOfWeek(dayOfTheWeek);
+        c.set(Calendar.DAY_OF_WEEK, dayOfTheWeek);
+        c.add(Calendar.DATE, 7);
+        return  c.getTime();
+    }
+
+    /**
+     * Get Next week date
+     * @param date Date Object
+     * @return Date
+     */
+    public static Date getNextWeekDate(Date date) {
+        return  getNextWeekDate(date,Calendar.MONDAY);
+    }
+    /**
+     * Get Next week date
+     * @param date Date Object
+     * @return Date
+     */
+    public static Date getNextWeekDate(String date) {
+        return  getNextWeekDate(formatDate(date));
+    }
+    /**
+     * Get Next week date
+     * @param date Date Object
+     * @param dayOfTheWeek Day Of the week
+     * @return Date
+     */
+    public static Date getNextWeekDate(String date, int dayOfTheWeek) {
+        return  getNextWeekDate(formatDate(date),dayOfTheWeek);
     }
     /**
      * Get difference between two dates
