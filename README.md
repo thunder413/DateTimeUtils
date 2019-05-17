@@ -130,7 +130,28 @@ boolean state = DateTimeUtils.isYesterday(new Date());
 // Date String as source
 boolean state = DateTimeUtils.isYestrday("2017-06-15 04:14:49");
 ```
+### Get Previous next Week
 
+``getPreviousWeekDate/getNextWeekDate`` Return the next or a previous week date from a given date it also allow you to set the day of the week by using Calendar Constant
+
+```java
+// Date object as source
+Date date = DateTimeUtils.getPreviousWeekDate(new Date(), Calendar.MONDAY);
+// Date String as source
+Date date = DateTimeUtils.getNextWeekDate("2017-06-15 04:14:49",Calendar.SUNDAY);
+
+```
+### Get Previous next month
+
+``getPreviousMonthDate/getNextMonthDate`` Return the next or a previous month date from a given date
+
+```java
+// Date object as source
+Date date = DateTimeUtils.getNextMonthDate(new Date());
+// Date String as source
+Date date = DateTimeUtils.getPreviousMonthDate("2017-06-15 04:14:49");
+
+```
 ### getDateDiff
 
 ``getDateDiff`` give you the difference between two date in days, hours, minutes, seconds or milliseconds ``DateTimeUnits`` 
