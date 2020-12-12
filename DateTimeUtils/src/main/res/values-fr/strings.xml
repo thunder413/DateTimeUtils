@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">DateTimeUtils</string>
     <string name="time_ago_now">à L\'instant</string>
     <string name="time_ago_full_seconds">Il y\'a %1$d seconds</string>
     <string name="time_ago_full_minute">Il y\'a %1$d minute</string>
